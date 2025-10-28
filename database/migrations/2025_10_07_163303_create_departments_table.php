@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('dept_code')->unique();
             $table->string('dept_name')->nullable();
+                $table->foreignId('division_id')->constrained()->onDelete('cascade');
             $table->foreignId('weeklyassign_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('work_location_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('leave_rule_id')->nullable()->constrained()->nullOnDelete();

@@ -1,29 +1,37 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DepartmentController;
 
 Route::get('/', function () {
-    return view('welcome');
+return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
+/*Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+*/
+Route::middleware(['auth', 'verified'])->group(function () {
+    // This line creates the missing routes: employees.index, employees.create, etc.
+    Route::resource('employees', EmployeeController::class);
+    Route::resource('employees', DepartmentController::class);
+    Route::resource('employees', AttendanceController::class);
+    Route::resource('employees', SalaryController::class);
+
+    // Your existing dashboard route might look like this:
+    Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+});
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-        Route::resource('employees', EmployeeController::class);
-    Route::resource('departments', DepartmentController::class);
-    
 });
 
 require __DIR__.'/auth.php';
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

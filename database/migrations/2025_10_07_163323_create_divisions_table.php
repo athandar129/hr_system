@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('divisions', function (Blueprint $table) {
-            $table->id();
-            $table->string('division_code');
-            $table->string('division_name');
-            $table->foreignId('dept_id')->nullable()->constrained()->nullOnDelete();
-            $table->timestamps();
+           $table->id();
+        $table->string('name');
+        $table->string('code')->nullable()->unique();
+        $table->text('description')->nullable();
+        $table->timestamps();
+
         });
     }
 

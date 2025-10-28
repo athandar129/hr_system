@@ -9,20 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('attendances', function (Blueprint $table) {
-            $table->id();
-             $table->foreignId('employee_id')->constrained()->onDelete('cascade');
-    $table->date('date');
-    $table->time('check_in')->nullable();
-    $table->time('check_out')->nullable();
-    $table->integer('work_minutes')->nullable();
-    $table->string('status')->default('present'); // present/absent/leave
-    $table->timestamps();
-    $table->unique(['employee_id','date']);
-        });
-    }
+   public function up(): void
+{
+   Schema::create('attendances', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('employee_id')->constrained()->onDelete('cascade');
+        $table->timestamp('check_in')->nullable();
+        $table->timestamp('check_out')->nullable();
+        $table->date('date');
+        $table->decimal('total_hours', 5, 2)->nullable();
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

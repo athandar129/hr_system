@@ -18,9 +18,6 @@ return redirect()->route('login');
 Route::middleware(['auth', 'verified'])->group(function () {
     // This line creates the missing routes: employees.index, employees.create, etc.
     Route::resource('employees', EmployeeController::class);
-    Route::resource('employees', DepartmentController::class);
-    Route::resource('employees', AttendanceController::class);
-    Route::resource('employees', SalaryController::class);
 
     // Your existing dashboard route might look like this:
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');

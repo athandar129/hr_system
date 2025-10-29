@@ -1,16 +1,17 @@
-@extends('layouts.app')
-@section('title', 'Employee Details')
+@extends('layouts.admin')
+
+@section('title', 'Employee Detail')
+
 @section('content')
-<div class="card">
-    <div class="card-header">{{ $employee->fullName() }}</div>
-    <div class="card-body">
-        <p><strong>Employee Code:</strong> {{ $employee->employee_code }}</p>
-        <p><strong>Email:</strong> {{ $employee->email }}</p>
-        <p><strong>Department:</strong> {{ $employee->department?->name }}</p>
-        <p><strong>Position:</strong> {{ $employee->position?->position_name }}</p>
-        <p><strong>Role:</strong> {{ $employee->role }}</p>
-        <p><strong>Status:</strong> {{ $employee->employment_status }}</p>
-        <a href="{{ route('employees.index') }}" class="btn btn-primary">Back</a>
-    </div>
-</div>
+<h3>Employee Detail</h3>
+<table class="table table-bordered">
+    <tr><th>Employee ID</th><td>{{ $employee->employee_id }}</td></tr>
+    <tr><th>Name</th><td>{{ $employee->name }}</td></tr>
+    <tr><th>Department</th><td>{{ $employee->department->name ?? '-' }}</td></tr>
+    <tr><th>Division</th><td>{{ $employee->division->name ?? '-' }}</td></tr>
+    <tr><th>Position</th><td>{{ $employee->position->name ?? '-' }}</td></tr>
+    <tr><th>Position Level</th><td>{{ $employee->position_level ?? '-' }}</td></tr>
+    <tr><th>Salary</th><td>{{ $employee->salary ? number_format($employee->salary,2) : '-' }}</td></tr>
+</table>
+<a href="{{ route('employees.index') }}" class="btn btn-secondary">Back</a>
 @endsection

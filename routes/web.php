@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ChatbotController;
 
 Route::get('/', function () {
 return redirect()->route('login');
@@ -22,6 +23,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Your existing dashboard route might look like this:
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
 });
+Route::middleware('auth')->post('/chatbot', [ChatbotController::class, 'handle'])->name('chatbot.handle');
+
+
+
 
 
 
